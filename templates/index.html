@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Hello World </h1>
+<h2>{{ent}}</h2>
+<input type="text" id="textbox"> </input>
+<input type="text" id="textbox2"> </input>
+<button onclick="add()"> ADD</button>
+<button onclick="del()">DELETE</button>
+<button onclick="update()">UPDATE</button
+<p id ='show' > </p>
+
+
+
+<script>
+  function add(){
+      var content = document.getElementById("textbox").value;
+      console.log(content)
+      $.ajax(
+        {
+          type:"GET",
+          url:"/create_read",
+          data: {
+               key: content
+          },
+          success : function( data ){
+              document.getElementById("show").textContent = content;
+          }
+        }
+    )
+  }
+</script>
+
+<script>
+  function del(){
+      var content = document.getElementById("textbox").value;
+      console.log(content)
+      $.ajax(
+        {
+          type:"GET",
+          url:"/delete_instance",
+          data: {
+               key: content
+          },
+          success : function( data ){
+              document.getElementById("show").textContent = content;
+          }
+        }
+    )
+  }
+  function update(){
+      var content = document.getElementById("textbox").value;
+      var update = document.getElementById("textbox2").value;
+      console.log(content)
+      $.ajax(
+        {
+          type:"GET",
+          url:"/update_instance",
+          data: {
+               key: content+'/'+update
+          },
+          success : function( data ){
+
+          }
+        }
+    )
+  }
+</script>
+
+
+
+{% endblock %}
